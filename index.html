@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nico — Pizzas & Licores Artesanais</title>
+<meta name="description" content="Pizzas de longa fermentação e licores artesanais, do nosso forno e do nosso alambique para a sua mesa. Nico Produtos Artesanais — Itariri, Vale do Ribeira.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Bagel+Fat+One&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face{
+    font-family:'TAN Meringue';
+    src:url('assets/fonts/tan-meringue.woff2') format('woff2'),
+        url('assets/fonts/tan-meringue.ttf') format('truetype');
+    font-weight:400;
+    font-style:normal;
+    font-display:swap;
+  }
+  :root{
+    --cream: #f7f1da;
+    --cream-2: #efe6c8;
+    --paper: #faf6e6;
+    --wine: #3a1416;
+    --wine-2: #52191b;
+    --wine-3: #230c0d;
+    --ink: #241307;
+    --ink-soft: #4a3826;
+    --gold: #a9824c;
+    --gold-soft: #c9a870;
+
+    --space-xs: clamp(0.5rem, 0.4rem + 0.4vw, 0.9rem);
+    --space-s:  clamp(0.9rem, 0.7rem + 0.7vw, 1.5rem);
+    --space-m:  clamp(1.6rem, 1.2rem + 1.6vw, 2.8rem);
+    --space-l:  clamp(2.6rem, 1.8rem + 3vw, 5rem);
+    --space-xl: clamp(4rem, 2.6rem + 6vw, 9rem);
+
+    --fs-eyebrow: clamp(0.7rem, 0.62rem + 0.3vw, 0.9rem);
+    --fs-body: clamp(0.98rem, 0.9rem + 0.3vw, 1.12rem);
+    --fs-h3: clamp(1.3rem, 1.1rem + 0.8vw, 1.7rem);
+    --fs-h2: clamp(2.1rem, 1.5rem + 2.2vw, 3.4rem);
+    --fs-script: clamp(3rem, 1.8rem + 5vw, 6.5rem);
+    --fs-script-lg: clamp(4rem, 1.6rem + 9vw, 10rem);
+
+    --maxw: 1180px;
+    --radius: 18px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Quicksand', sans-serif;
+    font-size:var(--fs-body);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  h1,h2,h3{margin:0;font-weight:700;}
+  p{margin:0;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+
+  .script{font-family:'Alex Brush', cursive; font-weight:400; line-height:1;}
+  .hero-title-font{font-family:'TAN Meringue', 'Bagel Fat One', cursive; font-weight:400; line-height:1; letter-spacing:-0.01em;}
+  .serif{font-family:'Playfair Display', serif;}
+
+  .wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:var(--space-m);}
+
+  ::selection{background:var(--wine); color:var(--cream);}
+
+  /* subtle paper grain */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- scroll progress ---------- */
+  .progress{
+    position:fixed; top:0; left:0; height:3px; width:100%;
+    background:transparent; z-index:1000;
+  }
+  .progress-bar{
+    height:100%; width:0%;
+    background:linear-gradient(90deg, var(--gold-soft), var(--wine));
+    transform-origin:left;
+    transition:width .08s linear;
+  }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:900;
+    display:flex; justify-content:center;
+    padding:var(--space-xs) var(--space-m);
+    transition:background .4s ease, box-shadow .4s ease, padding .4s ease;
+  }
+  .nav.scrolled{
+    background:rgba(247,241,218,0.88);
+    backdrop-filter:blur(10px);
+    box-shadow:0 1px 0 rgba(58,20,22,0.12);
+    padding-block:var(--space-xs);
+  }
+  .nav-inner{
+    width:100%; max-width:var(--maxw);
+    display:flex; align-items:center; justify-content:space-between;
+    gap:var(--space-m);
+  }
+  .nav-logo{
+    display:flex; align-items:center; gap:0.6rem;
+    color:var(--wine);
+  }
+  .nav-logo-img{
+    width:auto; height:44px; display:block;
+  }
+  .nav-logo-text{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:1.35rem;
+    letter-spacing:0.14em;
+    display:flex; flex-direction:column; line-height:1;
+  }
+  .nav-logo-sub{
+    font-family:'Quicksand', sans-serif;
+    font-weight:600;
+    font-size:0.5rem;
+    letter-spacing:0.3em;
+    color:var(--ink-soft);
+    margin-top:3px;
+  }
+  .nav-links{display:flex; align-items:center; gap:clamp(1rem, 0.6rem + 1.5vw, 2.4rem);}
+  .nav-links a{
+    position:relative;
+    font-size:0.92rem; font-weight:600;
+    color:var(--ink);
+    padding-block:4px;
+  }
+  .nav-links a:not(.nav-cta)::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:2px;
+    background:var(--wine); transition:right .3s ease;
+  }
+  .nav-links a:not(.nav-cta):hover::after,
+  .nav-links a.active::after{right:0;}
+  .nav-cta{
+    background:var(--wine); color:var(--cream) !important;
+    padding:0.55em 1.2em; border-radius:999px;
+    font-size:0.85rem !important;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    box-shadow:0 6px 16px rgba(58,20,22,0.25);
+  }
+  .nav-cta:hover{transform:translateY(-2px) scale(1.03); background:var(--wine-2); box-shadow:0 10px 22px rgba(58,20,22,0.32);}
+
+  .nav-toggle{
+    display:none; background:none; border:none; cursor:pointer;
+    width:32px; height:24px; position:relative; padding:0;
+  }
+  .nav-toggle span{
+    position:absolute; left:0; right:0; height:2px; background:var(--wine);
+    transition:transform .3s ease, opacity .3s ease;
+  }
+  .nav-toggle span:nth-child(1){top:0;}
+  .nav-toggle span:nth-child(2){top:11px;}
+  .nav-toggle span:nth-child(3){top:22px;}
+  .nav-toggle.open span:nth-child(1){transform:translateY(11px) rotate(45deg);}
+  .nav-toggle.open span:nth-child(2){opacity:0;}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-11px) rotate(-45deg);}
+
+  @media (max-width: 780px){
+    .nav-links{
+      position:fixed; inset:0 0 0 auto; width:min(78vw, 320px);
+      background:var(--cream); flex-direction:column; align-items:flex-start;
+      justify-content:center; gap:var(--space-m);
+      padding:var(--space-l);
+      transform:translateX(100%); transition:transform .4s cubic-bezier(.6,0,.2,1);
+      box-shadow:-10px 0 30px rgba(0,0,0,0.15);
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-toggle{display:block;}
+    .nav-cta{margin-top:var(--space-s);}
+  }
+
+  /* ---------- reveal ---------- */
+  [data-reveal]{
+    opacity:0; transform:translateY(28px);
+    transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  [data-reveal].in-view{opacity:1; transform:translateY(0);}
+  [data-reveal="scale"]{transform:translateY(20px) scale(0.96);}
+  [data-reveal="scale"].in-view{transform:translateY(0) scale(1);}
+  [data-reveal="left"]{transform:translateX(-40px);}
+  [data-reveal="left"].in-view{transform:translateX(0);}
+  [data-reveal="right"]{transform:translateX(40px);}
+  [data-reveal="right"].in-view{transform:translateX(0);}
+
+  /* stagger children */
+  .stagger [data-reveal]:nth-child(1){transition-delay:.05s;}
+  .stagger [data-reveal]:nth-child(2){transition-delay:.14s;}
+  .stagger [data-reveal]:nth-child(3){transition-delay:.23s;}
+  .stagger [data-reveal]:nth-child(4){transition-delay:.32s;}
+  .stagger [data-reveal]:nth-child(5){transition-delay:.41s;}
+  .stagger [data-reveal]:nth-child(6){transition-delay:.5s;}
+  .stagger [data-reveal]:nth-child(7){transition-delay:.59s;}
+
+  /* ---------- section base ---------- */
+  .section{position:relative; z-index:1; padding-block:var(--space-xl);}
+  .section-dark{background:var(--wine); color:var(--cream);}
+  .section-dark .ink-soft{color:#d9c4a3;}
+
+  .eyebrow{
+    font-size:var(--fs-eyebrow); font-weight:700; letter-spacing:0.28em;
+    text-transform:uppercase; color:var(--gold);
+  }
+  .section-dark .eyebrow{color:var(--gold-soft);}
+
+  .heading-script{
+    font-family:'Alex Brush', cursive;
+    font-weight:400;
+    font-size:var(--fs-script);
+    color:inherit;
+  }
+  .subtitle{
+    font-family:'Playfair Display', serif; font-style:italic; font-weight:500;
+    font-size:var(--fs-h3); margin-top:var(--space-xs); max-width:46ch;
+  }
+
+  .divider{
+    width:64px; height:2px; background:var(--gold); border:none;
+    margin:var(--space-s) 0;
+  }
+  .section-dark .divider{background:var(--gold-soft);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh; min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(169,130,76,0.16), transparent 60%),
+      var(--cream);
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .hero-blob{
+    position:absolute; border-radius:50%;
+    filter:blur(2px);
+    will-change:transform;
+    z-index:-1;
+  }
+  .hero-blob.b1{
+    width:min(70vw, 780px); aspect-ratio:1/1.15; top:6%; left:50%;
+    transform:translateX(-50%);
+    background:radial-gradient(circle at 50% 35%, rgba(58,20,22,0.09), rgba(58,20,22,0.03) 60%, transparent 72%);
+  }
+  .hero-blob.b2{
+    width:220px; height:220px; top:14%; left:8%;
+    background:radial-gradient(circle, rgba(169,130,76,0.28), transparent 70%);
+  }
+  .hero-blob.b3{
+    width:280px; height:280px; bottom:6%; right:6%;
+    background:radial-gradient(circle, rgba(58,20,22,0.14), transparent 70%);
+  }
+  .hero-watermark{
+    position:absolute; z-index:-1; top:50%; left:50%;
+    width:min(46vw, 480px); height:auto;
+    transform:translate(-50%,-50%);
+    opacity:0.09; filter:grayscale(1) contrast(1.1);
+    will-change:transform;
+    pointer-events:none;
+  }
+  .hero-ring{
+    position:absolute; z-index:-1; border-radius:50%;
+    border:1.5px dashed rgba(58,20,22,0.22);
+    width:min(56vw, 620px); aspect-ratio:1/1;
+    top:50%; left:50%; transform:translate(-50%,-52%);
+    will-change:transform;
+  }
+  .hero-eyebrow{
+    font-size:var(--fs-eyebrow); letter-spacing:0.32em; text-transform:uppercase;
+    color:var(--wine); font-weight:700;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 1.2rem + 6vw, 5.6rem);
+    color:var(--wine);
+    margin-top:var(--space-m);
+    margin-bottom:var(--space-xs);
+  }
+  .hero-tagline{
+    font-family:'Playfair Display', serif; font-style:italic; font-weight:500;
+    font-size:clamp(1.05rem, 0.9rem + 0.7vw, 1.5rem);
+    color:var(--ink-soft);
+  }
+  .hero-actions{
+    display:flex; gap:var(--space-s); margin-top:var(--space-m); flex-wrap:wrap; justify-content:center;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:.5em;
+    padding:0.9em 1.9em; border-radius:999px;
+    font-weight:700; font-size:0.95rem; letter-spacing:0.02em;
+    transition:transform .3s cubic-bezier(.3,1.4,.5,1), box-shadow .3s ease, background .3s ease, color .3s ease;
+    cursor:pointer; border:1.5px solid transparent;
+  }
+  .btn-primary{background:var(--wine); color:var(--cream); box-shadow:0 10px 24px rgba(58,20,22,0.28);}
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 16px 30px rgba(58,20,22,0.35); background:var(--wine-2);}
+  .btn-ghost{border-color:var(--wine); color:var(--wine); background:transparent;}
+  .btn-ghost:hover{background:var(--wine); color:var(--cream); transform:translateY(-3px);}
+  .section-dark .btn-ghost{border-color:var(--cream); color:var(--cream);}
+  .section-dark .btn-ghost:hover{background:var(--cream); color:var(--wine);}
+
+  .hero-sublink{
+    display:inline-block; margin-top:var(--space-m);
+    font-family:'Playfair Display', serif; font-style:italic; font-weight:600;
+    font-size:0.98rem; color:var(--wine); border-bottom:1px solid transparent;
+    transition:border-color .3s ease, opacity .3s ease;
+  }
+  .hero-sublink:hover{border-color:var(--wine);}
+
+  .scroll-cue{
+    position:absolute; bottom:var(--space-m); left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-size:0.72rem; letter-spacing:0.24em; text-transform:uppercase;
+    color:var(--ink-soft); font-weight:600;
+    animation:floaty 2.6s ease-in-out infinite;
+  }
+  .scroll-cue .line{width:1px; height:30px; background:linear-gradient(var(--wine), transparent);}
+  @keyframes floaty{
+    0%,100%{transform:translate(-50%, 0);}
+    50%{transform:translate(-50%, 8px);}
+  }
+
+  /* ---------- história ---------- */
+  .historia-grid{
+    display:grid; grid-template-columns: 0.9fr 1.1fr; gap:var(--space-xl);
+    align-items:start;
+  }
+  .historia-head{position:sticky; top:110px;}
+  .historia-head .heading-script{color:var(--wine);}
+  .historia-body h3{
+    font-family:'Playfair Display', serif; font-weight:700; font-size:var(--fs-h3);
+    color:var(--wine); margin-bottom:var(--space-xs);
+  }
+  .historia-body p{color:var(--ink-soft); margin-bottom:1.1em;}
+  .historia-block{margin-bottom:var(--space-l);}
+  .historia-block:last-child{margin-bottom:0;}
+
+  @media (max-width: 860px){
+    .historia-grid{grid-template-columns:1fr; gap:var(--space-m);}
+    .historia-head{position:static;}
+  }
+
+  /* ---------- processo ---------- */
+  .processo{background:var(--wine); color:var(--cream); overflow:hidden; position:relative;}
+  .processo-watermark{
+    position:absolute; right:-6%; top:-6%; width:min(50vw, 520px); height:auto;
+    z-index:0; will-change:transform;
+    opacity:0.12; filter:grayscale(1) invert(1) brightness(1.5);
+    pointer-events:none;
+  }
+  .processo-inner{position:relative; z-index:1;}
+  .processo-list{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap:var(--space-m); margin-top:var(--space-l);
+  }
+  .processo-card{
+    background:rgba(247,241,218,0.04);
+    border:1px solid rgba(247,241,218,0.14);
+    border-radius:var(--radius);
+    padding:var(--space-m);
+    transition:transform .4s cubic-bezier(.2,.7,.2,1), background .4s ease, border-color .4s ease;
+  }
+  .processo-card:hover{
+    transform:translateY(-6px);
+    background:rgba(247,241,218,0.08);
+    border-color:rgba(247,241,218,0.3);
+  }
+  .processo-num{
+    font-family:'Playfair Display', serif; font-weight:800; font-style:italic;
+    font-size:2.1rem; color:var(--gold-soft); line-height:1; margin-bottom:.5em;
+  }
+  .processo-card h3{
+    font-family:'Playfair Display', serif; font-weight:700; font-size:1.15rem;
+    margin-bottom:.5em;
+  }
+  .processo-card p{color:#e6d8bd; font-size:0.94rem;}
+
+  .size-badge{
+    margin-top:var(--space-xl);
+    display:flex; flex-direction:column; align-items:center; gap:.6em;
+    text-align:center;
+  }
+  .size-badge .label{
+    font-family:'Playfair Display', serif; font-style:italic; font-size:1.3rem; color:var(--gold-soft);
+  }
+  .ruler{
+    display:flex; align-items:flex-end; gap:2px; height:20px;
+  }
+  .ruler i{
+    display:block; width:2px; background:rgba(247,241,218,0.55);
+  }
+  .ruler i:nth-child(4n+1){height:100%;}
+  .ruler i:not(:nth-child(4n+1)){height:45%;}
+
+  /* ---------- cardápio ---------- */
+  .cardapio{position:relative;}
+  .tabs{
+    display:flex; gap:var(--space-xs); flex-wrap:wrap;
+    margin-top:var(--space-l); border-bottom:1px solid rgba(58,20,22,0.18);
+    padding-bottom:0;
+  }
+  .tab-btn{
+    background:none; border:none; cursor:pointer;
+    font-family:'Playfair Display', serif; font-weight:700; font-size:clamp(0.95rem, 0.85rem + 0.4vw, 1.15rem);
+    color:var(--ink-soft);
+    padding:0.7em 0.2em; position:relative;
+    transition:color .3s ease;
+  }
+  .tab-btn + .tab-btn{margin-left:var(--space-m);}
+  .tab-btn::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    background:var(--wine); transform:scaleX(0); transform-origin:left;
+    transition:transform .35s cubic-bezier(.3,1,.4,1);
+  }
+  .tab-btn.active{color:var(--wine);}
+  .tab-btn.active::after{transform:scaleX(1);}
+
+  .tab-panel{display:none; padding-top:var(--space-l);}
+  .tab-panel.active{display:block;}
+  .panel-subtitle{
+    font-family:'Playfair Display', serif; font-style:italic; color:var(--ink-soft);
+    font-size:1.15rem; margin-bottom:var(--space-l);
+  }
+
+  .menu-list{display:flex; flex-direction:column;}
+  .menu-item{
+    display:grid; grid-template-columns:1fr auto; gap:0 var(--space-m);
+    padding-block:var(--space-s);
+    border-bottom:1px solid rgba(58,20,22,0.12);
+    transition:background .3s ease, padding-inline .3s ease;
+  }
+  .menu-item:hover{background:rgba(58,20,22,0.035); padding-inline:var(--space-xs);}
+  .menu-item:last-child{border-bottom:none;}
+  .menu-item-name{
+    font-family:'Playfair Display', serif; font-weight:700;
+    font-size:clamp(1.08rem, 1rem + 0.3vw, 1.3rem);
+    color:var(--wine);
+    display:flex; align-items:baseline; gap:.5em; flex-wrap:wrap;
+  }
+  .menu-item-name .tag{
+    font-family:'Quicksand', sans-serif; font-weight:700; font-size:0.6rem;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--gold);
+    border:1px solid var(--gold); border-radius:999px; padding:0.2em 0.6em;
+  }
+  .menu-item-desc{
+    grid-column:1 / -1;
+    color:var(--ink-soft); font-size:0.96rem; margin-top:0.35em; max-width:62ch;
+  }
+  .menu-item-desc small{display:block; margin-top:0.35em; opacity:0.8; font-style:italic;}
+  .menu-item-price{
+    font-family:'Playfair Display', serif; font-weight:700; font-size:1.2rem;
+    color:var(--ink); white-space:nowrap;
+    position:relative; align-self:start;
+  }
+
+  .panel-footnote{
+    margin-top:var(--space-l); text-align:center;
+    font-family:'Playfair Display', serif; font-style:italic; color:var(--gold);
+    font-size:1.05rem;
+  }
+
+  /* ---------- qty stepper (cardápio cart) ---------- */
+  .qty-stepper{
+    grid-column:1 / -1;
+    display:flex; align-items:center; justify-content:flex-end;
+    gap:0.9rem; margin-top:0.7rem;
+  }
+  .qty-btn{
+    width:32px; height:32px; border-radius:50%;
+    border:1.5px solid var(--wine); background:transparent; color:var(--wine);
+    font-size:1.1rem; font-weight:700; line-height:1; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .2s cubic-bezier(.3,1.4,.5,1), background .25s ease, color .25s ease;
+  }
+  .qty-btn:hover{background:var(--wine); color:var(--cream); transform:scale(1.08);}
+  .qty-btn:active{transform:scale(0.94);}
+  .qty-value{
+    min-width:1.6em; text-align:center;
+    font-family:'Playfair Display', serif; font-weight:700; font-size:1.05rem;
+    color:var(--wine);
+  }
+
+  /* ---------- floating cart button ---------- */
+  .cart-fab{
+    position:fixed; right:var(--space-m); bottom:var(--space-m); z-index:850;
+    width:60px; height:60px; border-radius:50%;
+    background:var(--wine); color:var(--cream); border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 12px 28px rgba(58,20,22,0.4);
+    transition:transform .3s cubic-bezier(.3,1.4,.5,1), box-shadow .3s ease, background .3s ease;
+  }
+  .cart-fab:hover{transform:translateY(-4px) scale(1.05); background:var(--wine-2); box-shadow:0 18px 34px rgba(58,20,22,0.48);}
+  .cart-fab-badge{
+    position:absolute; top:-4px; right:-4px;
+    background:var(--gold); color:var(--wine);
+    font-family:'Quicksand', sans-serif; font-weight:700; font-size:0.72rem;
+    min-width:22px; height:22px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    padding:0 4px; border:2px solid var(--cream);
+    transition:transform .25s cubic-bezier(.3,1.4,.5,1);
+  }
+  .cart-fab-badge.bump{animation:cartBump .35s ease;}
+  @keyframes cartBump{
+    0%{transform:scale(1);} 40%{transform:scale(1.4);} 100%{transform:scale(1);}
+  }
+
+  /* ---------- cart drawer ---------- */
+  .cart-overlay{
+    position:fixed; inset:0; background:rgba(20,8,8,0.45); z-index:950;
+    opacity:0; pointer-events:none; transition:opacity .35s ease;
+  }
+  .cart-overlay.open{opacity:1; pointer-events:auto;}
+  .cart-drawer{
+    position:fixed; top:0; right:0; bottom:0; z-index:960;
+    width:min(92vw, 420px);
+    background:var(--paper); box-shadow:-14px 0 40px rgba(0,0,0,0.25);
+    display:flex; flex-direction:column;
+    transform:translateX(100%); transition:transform .4s cubic-bezier(.6,0,.2,1);
+  }
+  .cart-drawer.open{transform:translateX(0);}
+  .cart-drawer-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:var(--space-m) var(--space-l);
+    border-bottom:1px solid rgba(58,20,22,0.14);
+  }
+  .cart-drawer-title{
+    font-family:'Playfair Display', serif; font-weight:700; font-size:1.3rem; color:var(--wine);
+  }
+  .cart-close{
+    background:none; border:none; font-size:1.6rem; line-height:1; cursor:pointer;
+    color:var(--wine); width:36px; height:36px; border-radius:50%;
+    transition:background .25s ease;
+  }
+  .cart-close:hover{background:rgba(58,20,22,0.08);}
+  .cart-items{flex:1; overflow-y:auto; padding:var(--space-s) var(--space-l);}
+  .cart-empty{color:var(--ink-soft); font-size:0.95rem; padding:var(--space-l) 0; text-align:center;}
+  .cart-line{
+    display:flex; align-items:center; gap:0.8rem;
+    padding:var(--space-s) 0; border-bottom:1px solid rgba(58,20,22,0.1);
+  }
+  .cart-line-info{flex:1; min-width:0;}
+  .cart-line-name{
+    font-family:'Playfair Display', serif; font-weight:700; color:var(--wine);
+    font-size:1rem;
+  }
+  .cart-line-price{color:var(--ink-soft); font-size:0.85rem;}
+  .cart-line .qty-stepper{grid-column:auto; margin-top:0; gap:0.5rem;}
+  .cart-line .qty-btn{width:26px; height:26px; font-size:0.95rem;}
+  .cart-line-remove{
+    background:none; border:none; cursor:pointer; color:var(--ink-soft);
+    font-size:1.2rem; line-height:1; padding:0.2rem 0.4rem;
+    transition:color .2s ease;
+  }
+  .cart-line-remove:hover{color:var(--wine);}
+  .cart-drawer-foot{
+    padding:var(--space-m) var(--space-l) var(--space-l);
+    border-top:1px solid rgba(58,20,22,0.14);
+  }
+  .cart-total-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'Playfair Display', serif; font-weight:700; color:var(--wine);
+    font-size:1.2rem; margin-bottom:var(--space-s);
+  }
+  .cart-send{
+    width:100%; justify-content:center; text-align:center; box-sizing:border-box;
+  }
+  .cart-send.disabled{
+    opacity:0.45; pointer-events:none;
+  }
+  .cart-clear{
+    display:block; margin:0.8rem auto 0; background:none; border:none;
+    color:var(--ink-soft); font-family:'Quicksand', sans-serif; font-size:0.85rem;
+    text-decoration:underline; cursor:pointer;
+  }
+  .cart-clear:hover{color:var(--wine);}
+
+  /* ---------- chips (licores highlights) ---------- */
+  .chip-row{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap:var(--space-s); margin-top:var(--space-l);
+  }
+  .chip{
+    border:1px solid rgba(58,20,22,0.18); border-radius:var(--radius);
+    padding:var(--space-s) var(--space-m);
+    transition:transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s ease, background .35s ease;
+  }
+  .chip:hover{transform:translateY(-4px); border-color:var(--wine); background:rgba(58,20,22,0.03);}
+  .chip strong{
+    display:block; font-family:'Playfair Display', serif; color:var(--wine);
+    font-size:1.05rem; margin-bottom:.3em;
+  }
+  .chip span{color:var(--ink-soft); font-size:0.88rem;}
+
+  /* ---------- price head + licor two-column price ---------- */
+  .price-head{
+    display:flex; justify-content:flex-end; gap:1rem;
+    font-family:'Playfair Display', serif; font-weight:700; color:var(--ink-soft);
+    font-size:0.85rem; padding-right:0.1rem; margin-top:var(--space-m);
+  }
+  .price-head span{width:3.4rem; text-align:right;}
+  .licor-price{display:flex; gap:1rem;}
+  .licor-price b{width:3.4rem; text-align:right; font-weight:700;}
+
+  /* ---------- essenza teaser ---------- */
+  .essenza-teaser{
+    margin-top:var(--space-l); padding:var(--space-m) var(--space-l);
+    border:1px dashed rgba(58,20,22,0.28); border-radius:var(--radius);
+    background:rgba(58,20,22,0.02);
+  }
+  .essenza-teaser .tag{
+    font-family:'Quicksand', sans-serif; font-weight:700; font-size:0.68rem;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--gold);
+  }
+  .essenza-teaser-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,220px), 1fr));
+    gap:var(--space-m); margin-top:var(--space-s); opacity:0.6;
+  }
+  .essenza-teaser-grid h4{
+    font-family:'Playfair Display', serif; font-weight:700; color:var(--ink-soft);
+    margin-bottom:.3em; font-size:1.05rem;
+  }
+  .essenza-teaser-grid p{color:var(--ink-soft); font-size:0.9rem;}
+
+  /* ---------- receitas ---------- */
+  .recipe-grid{
+    display:grid; gap:var(--space-m); margin-top:var(--space-l);
+  }
+  .recipe-card{
+    border:1px solid rgba(58,20,22,0.16); border-radius:var(--radius);
+    background:var(--paper); overflow:hidden;
+    transition:border-color .3s ease, box-shadow .3s ease;
+  }
+  .recipe-card[open]{border-color:var(--wine); box-shadow:0 12px 30px rgba(58,20,22,0.1);}
+  .recipe-card summary{
+    list-style:none; cursor:pointer; padding:var(--space-m) var(--space-l);
+    display:flex; flex-direction:column; gap:.5em;
+  }
+  .recipe-card summary::-webkit-details-marker{display:none;}
+  .recipe-tag{
+    font-family:'Quicksand', sans-serif; font-weight:700; font-size:0.68rem;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--gold);
+  }
+  .recipe-card h3{
+    font-family:'Playfair Display', serif; font-weight:700;
+    font-size:clamp(1.1rem, 1rem + 0.5vw, 1.4rem); color:var(--wine);
+  }
+  .recipe-desc{color:var(--ink-soft); font-size:0.95rem; max-width:70ch;}
+  .recipe-more{
+    font-family:'Playfair Display', serif; font-style:italic; font-weight:600;
+    font-size:0.9rem; color:var(--wine);
+  }
+  .recipe-card[open] .recipe-more{display:none;}
+  .recipe-body{
+    padding:0 var(--space-l) var(--space-l);
+    border-top:1px solid rgba(58,20,22,0.12); padding-top:var(--space-m);
+  }
+  .recipe-cols{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,220px), 1fr));
+    gap:var(--space-m); margin-bottom:var(--space-m);
+  }
+  .recipe-body h4{
+    font-family:'Playfair Display', serif; font-weight:700; color:var(--wine);
+    font-size:1rem; margin-bottom:.5em;
+  }
+  .recipe-body ul, .recipe-body ol{margin:0 0 var(--space-m); padding-left:1.2em; color:var(--ink-soft); font-size:0.92rem;}
+  .recipe-body li{margin-bottom:.4em;}
+  .recipe-meta{font-size:0.85rem; color:var(--gold); font-weight:600; margin-bottom:.4em;}
+  .recipe-pair{
+    font-family:'Playfair Display', serif; font-style:italic; color:var(--ink-soft);
+    font-size:0.92rem;
+  }
+
+  /* ---------- preparo ---------- */
+  .preparo{background:var(--wine); color:var(--cream);}
+  .preparo-toggle{
+    display:inline-flex; margin-top:var(--space-m);
+    border:1px solid rgba(247,241,218,0.3); border-radius:999px; padding:4px;
+    gap:4px;
+  }
+  .preparo-toggle button{
+    background:none; border:none; cursor:pointer; color:var(--cream);
+    font-family:'Quicksand',sans-serif; font-weight:700; font-size:0.85rem;
+    padding:0.6em 1.3em; border-radius:999px; transition:background .3s ease, color .3s ease;
+  }
+  .preparo-toggle button.active{background:var(--cream); color:var(--wine);}
+
+  .preparo-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap:var(--space-m); margin-top:var(--space-l);
+  }
+  .preparo-card{
+    background:rgba(247,241,218,0.05); border:1px solid rgba(247,241,218,0.14);
+    border-radius:var(--radius); padding:var(--space-m);
+  }
+  .preparo-card h3{
+    font-family:'Playfair Display', serif; font-size:1.05rem; margin-bottom:.7em;
+    display:flex; align-items:center; gap:.5em;
+  }
+  .preparo-card ul{margin:0; padding-left:1.1em; color:#e6d8bd; font-size:0.92rem;}
+  .preparo-card li{margin-bottom:.6em;}
+  .preparo-card li:last-child{margin-bottom:0;}
+
+  .preparo-panel{display:none;}
+  .preparo-panel.active{display:block;}
+
+  .obs-box{
+    margin-top:var(--space-m); padding:var(--space-m);
+    border-left:2px solid var(--gold-soft); background:rgba(247,241,218,0.04);
+    border-radius:0 var(--radius) var(--radius) 0;
+  }
+  .obs-box ul{margin:0; padding-left:1.1em; color:#e6d8bd; font-size:0.94rem;}
+  .obs-box li{margin-bottom:.5em;}
+
+  .dica-box{
+    margin-top:var(--space-l); padding:var(--space-m) var(--space-l);
+    background:rgba(247,241,218,0.08); border-radius:var(--radius);
+    text-align:center; font-family:'Playfair Display', serif; font-weight:600;
+    font-style:italic; font-size:clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+    max-width:70ch; margin-inline:auto;
+  }
+
+  /* ---------- footer ---------- */
+  .footer{
+    background:var(--wine-3); color:var(--cream);
+    padding-block:var(--space-xl) var(--space-l);
+    text-align:center;
+    min-height:70svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:var(--space-m);
+  }
+  .footer-logo-img{
+    width:120px; height:auto; border-radius:50%;
+    box-shadow:0 12px 30px rgba(0,0,0,0.35);
+  }
+  .footer-logo{
+    font-family:'Playfair Display', serif; font-weight:900; font-size:2.2rem;
+    letter-spacing:0.16em;
+  }
+  .footer-logo span{
+    display:block; font-family:'Quicksand', sans-serif; font-weight:600;
+    font-size:0.62rem; letter-spacing:0.4em; color:var(--gold-soft); margin-top:6px;
+  }
+  .footer p.tagline{
+    font-family:'Alex Brush', cursive; font-size:2.4rem; color:var(--gold-soft);
+  }
+  .footer-address{color:#cbb999; font-size:0.92rem; max-width:40ch;}
+  .footer-actions{display:flex; gap:var(--space-s); flex-wrap:wrap; justify-content:center; margin-top:var(--space-xs);}
+  .footer-note{
+    margin-top:var(--space-l); font-size:0.75rem; color:#8a6f57; letter-spacing:0.04em;
+  }
+
+  /* generic wide container helper */
+  .center-head{text-align:center; display:flex; flex-direction:column; align-items:center;}
+  .center-head .divider{margin-inline:auto;}
+</style>
+</head>
+<body>
+
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+  <header class="nav" id="siteNav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-logo">
+        <img src="assets/nico-logo.png" alt="Nico" class="nav-logo-img">
+        <span class="nav-logo-text">NICO<span class="nav-logo-sub">Produtos Artesanais</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#cardapio">Cardápio</a>
+        <a href="#licores">Licores</a>
+        <a href="#preparo">Modo de Preparo</a>
+        <a href="#receitas">Receitas</a>
+        <a href="#historia">História</a>
+        <a href="#contato" class="nav-cta">Pedir agora</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-blob b1" data-parallax="0.08"></div>
+    <div class="hero-blob b2" data-parallax="0.18"></div>
+    <div class="hero-blob b3" data-parallax="0.14"></div>
+    <img src="assets/nico-logo.png" alt="" class="hero-watermark" data-parallax="0.06">
+    <div class="hero-ring" data-parallax="0.05"></div>
+
+    <div class="hero-inner wrap">
+      <p class="hero-eyebrow" data-reveal>Massas de longa fermentação · 48h–72h</p>
+      <h1 class="hero-title-font" data-reveal="scale">NICO Pizzas</h1>
+      <p class="hero-tagline" data-reveal>“Do nosso forno, para o seu.”</p>
+      <div class="hero-actions" data-reveal>
+        <a href="#cardapio" class="btn btn-primary">Ver cardápio</a>
+        <a href="#contato" class="btn btn-ghost">Fazer pedido</a>
+      </div>
+      <a href="#licores" class="hero-sublink" data-reveal>Também fazemos licores artesanais →</a>
+    </div>
+
+    <div class="scroll-cue">
+      <span>role para descobrir</span>
+      <span class="line"></span>
+    </div>
+  </section>
+
+  <!-- PROCESSO / NOSSAS PIZZAS -->
+  <section class="section processo" id="processo">
+    <img src="assets/nico-logo.png" alt="" class="processo-watermark" data-parallax="0.06">
+    <div class="wrap processo-inner">
+      <div class="center-head" data-reveal>
+        <p class="eyebrow">O que nos torna especiais</p>
+        <h2 class="heading-script">Pizzas</h2>
+        <hr class="divider">
+        <p class="subtitle">Nossas pizzas.</p>
+      </div>
+
+      <div class="processo-list stagger">
+        <div class="processo-card" data-reveal>
+          <div class="processo-num">01</div>
+          <h3>Fermentação natural e lenta</h3>
+          <p>Usamos pouco fermento, pois a maturação da massa acontece a frio e por longo tempo (48h–72h). Isso garante leveza, aromas mais complexos e uma digestão muito mais agradável, sem aquela sensação de inchaço.</p>
+        </div>
+        <div class="processo-card" data-reveal>
+          <div class="processo-num">02</div>
+          <h3>Textura e sabor únicos</h3>
+          <p>O processo de longa fermentação libera enzimas que transformam o amido em açúcares naturais, resultando em uma massa com mais sabor, aroma e alvéolos bem definidos.</p>
+        </div>
+        <div class="processo-card" data-reveal>
+          <div class="processo-num">03</div>
+          <h3>Ingredientes frescos e padronizados</h3>
+          <p>Cada massa é preparada individualmente, com pesagem precisa de todos os ingredientes, garantindo consistência e qualidade em cada pizza.</p>
+        </div>
+        <div class="processo-card" data-reveal>
+          <div class="processo-num">04</div>
+          <h3>Atenção ao artesanal</h3>
+          <p>As massas são abertas mão a mão, podendo gerar pequenas variações no diâmetro (27cm–29cm) — sinal do trabalho artesanal. Peso da massa e ingredientes sempre permanecem iguais.</p>
+        </div>
+        <div class="processo-card" data-reveal>
+          <div class="processo-num">05</div>
+          <h3>Tecnologia e artesania lado a lado</h3>
+          <p>Nossas pizzas são embaladas a vácuo e congeladas logo após a pré-assagem, preservando textura, frescor e sabor sem necessidade de conservantes.</p>
+        </div>
+        <div class="processo-card" data-reveal>
+          <div class="processo-num">06</div>
+          <h3>Pré-assadas em alta temperatura</h3>
+          <p>A alta hidratação exige temperaturas extremas para liberar vapor e formar grandes alvéolos de ar — resultado só alcançado em fornos a lenha ou de pizzaria.</p>
+        </div>
+        <div class="processo-card" data-reveal>
+          <div class="processo-num">07</div>
+          <h3>Experiência de pizzaria em casa</h3>
+          <p>No seu forno, você finaliza a pizza no ponto perfeito, enquanto o recheio derrete e a massa atinge sua crocância ideal. O sabor autêntico de pizzaria, direto no conforto da sua casa.</p>
+        </div>
+      </div>
+
+      <div class="size-badge" data-reveal>
+        <span class="label">27cm – 29cm</span>
+        <div class="ruler" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDÁPIO -->
+  <section class="section cardapio" id="cardapio">
+    <div class="wrap">
+      <div class="center-head" data-reveal>
+        <p class="eyebrow">O cardápio</p>
+        <h2 class="heading-script" style="color:var(--wine)">Cardápio</h2>
+        <hr class="divider">
+      </div>
+
+      <div class="tabs-widget">
+      <div class="tabs" role="tablist" id="menuTabs">
+        <button class="tab-btn active" data-tab="tradizionali" role="tab" aria-selected="true">Tradizionali</button>
+        <button class="tab-btn" data-tab="speciali" role="tab" aria-selected="false">Speciali</button>
+        <button class="tab-btn" data-tab="essenza" role="tab" aria-selected="false">Essenza</button>
+        <button class="tab-btn" data-tab="dolce" role="tab" aria-selected="false">Dolce</button>
+        <button class="tab-btn" data-tab="acompanhamentos" role="tab" aria-selected="false">Acompanhamentos</button>
+      </div>
+
+      <!-- TRADIZIONALI -->
+      <div class="tab-panel active" data-panel="tradizionali">
+        <p class="panel-subtitle">Pizzas clássicas que todo mundo ama.</p>
+        <div class="menu-list">
+          <div class="menu-item" data-name="Nico Rosso" data-price="20">
+            <span class="menu-item-name">Nico Rosso</span>
+            <span class="menu-item-price">R$ 20</span>
+            <p class="menu-item-desc">Massa com nosso molho de tomate, para que você deixe sua criatividade fluir.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Marguerita" data-price="37">
+            <span class="menu-item-name">Marguerita</span>
+            <span class="menu-item-price">R$ 37</span>
+            <p class="menu-item-desc">Mussarela, parmesão, manjericão, tomate e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Frangolino" data-price="38">
+            <span class="menu-item-name">Frangolino</span>
+            <span class="menu-item-price">R$ 38</span>
+            <p class="menu-item-desc">Frango, catupiry, mussarela e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Brócolis Nico" data-price="37">
+            <span class="menu-item-name">Brócolis Nico</span>
+            <span class="menu-item-price">R$ 37</span>
+            <p class="menu-item-desc">Pasta de alho, catupiry, brócolis, mussarela e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Pepperoni" data-price="38">
+            <span class="menu-item-name">Pepperoni</span>
+            <span class="menu-item-price">R$ 38</span>
+            <p class="menu-item-desc">Mussarela, pepperoni, parmesão e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Carne Seca" data-price="37">
+            <span class="menu-item-name">Carne seca</span>
+            <span class="menu-item-price">R$ 37</span>
+            <p class="menu-item-desc">Mussarela, carne seca, cebola e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Calabresa Especial" data-price="35">
+            <span class="menu-item-name">Calabresa especial</span>
+            <span class="menu-item-price">R$ 35</span>
+            <p class="menu-item-desc">Calabresa, mussarela, cebola e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+        </div>
+        <p class="panel-footnote">Todas as pizzas acompanham molho de tomate.</p>
+      </div>
+
+      <!-- SPECIALI -->
+      <div class="tab-panel" data-panel="speciali">
+        <p class="panel-subtitle">Para quem busca combinações que saem do comum.</p>
+        <div class="menu-list">
+          <div class="menu-item" data-name="Oriental" data-price="39">
+            <span class="menu-item-name">Oriental</span>
+            <span class="menu-item-price">R$ 39</span>
+            <p class="menu-item-desc">Atum, cream cheese, cebolinha, mussarela, molho tarê e gergelim torrado.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Gorgonzola" data-price="38">
+            <span class="menu-item-name">Gorgonzola</span>
+            <span class="menu-item-price">R$ 38</span>
+            <p class="menu-item-desc">Mussarela, cream cheese, catupiry, gorgonzola e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Carne Seca com Brócolis" data-price="39">
+            <span class="menu-item-name">Carne seca com brócolis</span>
+            <span class="menu-item-price">R$ 39</span>
+            <p class="menu-item-desc">Mussarela, carne seca, brócolis, cebola e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Brócolis Nico com Bacon" data-price="39">
+            <span class="menu-item-name">Brócolis Nico com bacon</span>
+            <span class="menu-item-price">R$ 39</span>
+            <p class="menu-item-desc">Pasta de alho, catupiry, brócolis, bacon, mussarela e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+        </div>
+        <p class="panel-footnote">Cada fatia feita com tempo, cuidado e sabor.</p>
+      </div>
+
+      <!-- ESSENZA -->
+      <div class="tab-panel" data-panel="essenza">
+        <p class="panel-subtitle">Criações autorais da Nico, para quem busca exclusividade.</p>
+        <div class="menu-list">
+          <div class="menu-item" data-name="Calabresa Nico" data-price="39">
+            <span class="menu-item-name">Calabresa Nico</span>
+            <span class="menu-item-price">R$ 39</span>
+            <p class="menu-item-desc">Calabresa, catupiry, mussarela, pimenta biquinho, cebola e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Maria" data-price="42">
+            <span class="menu-item-name">Maria</span>
+            <span class="menu-item-price">R$ 42</span>
+            <p class="menu-item-desc">Catupiry, mussarela, carne seca, pimenta biquinho, Maionese Nico (maionese, mostarda e mix de temperos defumado Nico), cebola e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Lombarda" data-price="42">
+            <span class="menu-item-name">Lombarda</span>
+            <span class="menu-item-price">R$ 42</span>
+            <p class="menu-item-desc">Cream cheese, catupiry, mussarela, gorgonzola, bacon, goiabada e orégano.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+        </div>
+        <p class="panel-footnote">Harmonize nossas pizzas com nossos licores.</p>
+      </div>
+
+      <!-- DOLCE -->
+      <div class="tab-panel" data-panel="dolce">
+        <p class="panel-subtitle">O toque doce que completa sua experiência Nico.</p>
+        <div class="menu-list">
+          <div class="menu-item" data-name="Fragola Cheesecake" data-price="50">
+            <span class="menu-item-name">Fragola Cheesecake <span class="tag">Exclusividade Nico</span></span>
+            <span class="menu-item-price">R$ 50</span>
+            <p class="menu-item-desc">Cream cheese, chocolate branco e geleia artesanal de morango reduzida com o Licor Fragola da Nico.
+              <small>Acompanha vidro de 40ml à parte, para finalizar por cima quando já assado.</small>
+            </p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Pistacchio Cheesecake" data-price="42">
+            <span class="menu-item-name">Pistacchio Cheesecake</span>
+            <span class="menu-item-price">R$ 42</span>
+            <p class="menu-item-desc">Cream cheese, chocolate branco, creme de pistache.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+          <div class="menu-item" data-name="Cookies" data-price="39">
+            <span class="menu-item-name">Cookies</span>
+            <span class="menu-item-price">R$ 39</span>
+            <p class="menu-item-desc">Chocolate branco e chocolate preto.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+        </div>
+        <p class="panel-footnote">Adoce sua experiência.</p>
+      </div>
+
+      <!-- ACOMPANHAMENTOS -->
+      <div class="tab-panel" data-panel="acompanhamentos">
+        <p class="panel-subtitle">Nossa geleia para acompanhar suas pizzas.</p>
+        <div class="menu-list">
+          <div class="menu-item" data-name="Geleia Fragola" data-price="17">
+            <span class="menu-item-name">Geleia Fragola <span class="tag">Vidro 40ml</span></span>
+            <span class="menu-item-price">R$ 17</span>
+            <p class="menu-item-desc">Feita com 30% dos morangos da infusão, 70% morangos frescos e adoçados diretamente com o açúcar presente no Licor Fragolino. O álcool evapora, o sabor do morango e o açúcar realçam o sabor.</p>
+            <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+          </div>
+        </div>
+        <p class="panel-footnote">Adoce sua experiência.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARRINHO FLUTUANTE -->
+  <button class="cart-fab" id="cartFab" aria-label="Ver carrinho">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+    <span class="cart-fab-badge" id="cartFabBadge">0</span>
+  </button>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-drawer-head">
+      <span class="cart-drawer-title">Seu pedido</span>
+      <button class="cart-close" id="cartClose" aria-label="Fechar carrinho">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty" id="cartEmpty">Seu carrinho está vazio. Adicione pizzas no cardápio!</p>
+    </div>
+    <div class="cart-drawer-foot">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cartTotal">R$ 0</span>
+      </div>
+      <a class="btn btn-primary cart-send" id="cartSend" href="#" target="_blank" rel="noopener">Enviar pedido no WhatsApp</a>
+      <button class="cart-clear" id="cartClear">Limpar carrinho</button>
+    </div>
+  </aside>
+
+  <!-- LICORES -->
+  <section class="section licores" id="licores">
+    <div class="wrap">
+      <div class="center-head" data-reveal>
+        <p class="eyebrow">Do nosso alambique</p>
+        <h2 class="heading-script" style="color:var(--wine)">Licores</h2>
+        <hr class="divider">
+        <p class="subtitle">Produção artesanal e local, maturados com tempo e paciência.</p>
+      </div>
+
+      <div class="chip-row stagger">
+        <div class="chip" data-reveal>
+          <strong>Produção local</strong>
+          <span>Frutas da região, feirantes locais e do sítio da família.</span>
+        </div>
+        <div class="chip" data-reveal>
+          <strong>20–90 dias de maturação</strong>
+          <span>Cada fruta com seu tempo, mais 20 dias de descanso após o envase.</span>
+        </div>
+        <div class="chip" data-reveal>
+          <strong>100% natural</strong>
+          <span>Sem conservantes, corantes ou aromatizantes artificiais.</span>
+        </div>
+      </div>
+
+      <div class="tabs-widget">
+        <div class="tabs" role="tablist" id="licorTabs">
+          <button class="tab-btn active" data-tab="licor-tradizionali" role="tab" aria-selected="true">Tradizionali</button>
+          <button class="tab-btn" data-tab="licor-speciali" role="tab" aria-selected="false">Speciali</button>
+          <button class="tab-btn" data-tab="licor-casa" role="tab" aria-selected="false">Casa Nico</button>
+        </div>
+
+        <!-- LICOR TRADIZIONALI -->
+        <div class="tab-panel active" data-panel="licor-tradizionali">
+          <p class="panel-subtitle">Licores tradicionais da Nico, delicados e cheios de sabor. Sabores simples, mas irresistíveis.</p>
+          <div class="price-head"><span>500 ml</span><span>700 ml</span></div>
+          <div class="menu-list">
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Fragolino Liquor</span>
+              <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
+              <p class="menu-item-desc">Licor delicado e refrescante de morangos frescos, perfeito para sobremesas e drinks leves.</p>
+            </div>
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Ananas Liquor</span>
+              <span class="menu-item-price licor-price"><b>R$ 55</b><b>R$ 75</b></span>
+              <p class="menu-item-desc">Licor tropical de abacaxi com o calor aromático da canela, ideal para drinks refrescantes.</p>
+            </div>
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Frutto della Passione Liquor</span>
+              <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
+              <p class="menu-item-desc">Licor marcante de maracujá, com acidez equilibrada e final vibrante.</p>
+            </div>
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Banana Liquor</span>
+              <span class="menu-item-price licor-price"><b>R$ 55</b><b>R$ 75</b></span>
+              <p class="menu-item-desc">Licor doce e aveludado, feito com bananas selecionadas e exclusivamente da nossa região.</p>
+            </div>
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Jabuticaba Liquor</span>
+              <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
+              <p class="menu-item-desc">Licor intenso e aromático, feito com jabuticabas colhidas na região no auge da maturação.</p>
+            </div>
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Limoncello</span>
+              <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
+              <p class="menu-item-desc">Licor clássico italiano, feito com limões sicilianos selecionados. Refrescante e aromático, perfeito para digestivo e drinks.</p>
+            </div>
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Frutto di Mango Liquor</span>
+              <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
+              <p class="menu-item-desc">Licor com textura aveludada, aroma intenso e sabor equilibrado, perfeito para servir gelado ou em drinks leves e refrescantes.</p>
+            </div>
+          </div>
+          <p class="panel-footnote">Sirva gelado, puro ou em drinks.</p>
+        </div>
+
+        <!-- LICOR SPECIALI -->
+        <div class="tab-panel" data-panel="licor-speciali">
+          <p class="panel-subtitle">Licores especiais que exploram combinações de sabores que fogem do comum, feitos para momentos especiais.</p>
+          <div class="price-head"><span>500 ml</span><span>700 ml</span></div>
+          <div class="menu-list">
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Fragola con Pepe Liquor</span>
+              <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
+              <p class="menu-item-desc">Licor ousado que combina a doçura delicada do morango com a picância envolvente da pimenta dedo-de-moça. Criado para quem gosta de contrastes de sabor.</p>
+            </div>
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Ananas con Zenzero Liquor</span>
+              <span class="menu-item-price licor-price"><b>R$ 55</b><b>R$ 75</b></span>
+              <p class="menu-item-desc">Licor vibrante que une a doçura tropical do abacaxi com o calor do gengibre, resultando em equilíbrio perfeito entre frescor e intensidade.</p>
+            </div>
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Passione di Mora e Fragola Liquor</span>
+              <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
+              <p class="menu-item-desc">Licor que une o melhor de duas frutas apaixonantes: a suavidade doce do morango e a intensidade levemente ácida da amora.</p>
+            </div>
+            <div class="menu-item licor-item">
+              <span class="menu-item-name">Granella di Cacao</span>
+              <span class="menu-item-price licor-price"><b>R$ 80</b><b>&nbsp;</b></span>
+              <p class="menu-item-desc">Licor com nibs de cacau selecionados diretamente da cidade de Itariri. Intenso, sofisticado e marcante, trazendo notas profundas de chocolate e um leve amargor que se equilibra com a doçura natural. Recebemos o nibs em natura e torramos na temperatura ideal para a produção.
+                <small>Disponível somente em 500ml.</small>
+              </p>
+            </div>
+          </div>
+          <p class="panel-footnote">Celebre e aproveite cada momento com quem a gente ama.</p>
+
+          <div class="essenza-teaser" data-reveal>
+            <span class="tag">Linha Essenza · Em breve</span>
+            <div class="essenza-teaser-grid">
+              <div>
+                <h4>Sensazione</h4>
+                <p>Licor de morango com nibs de cacau, trazendo aquela nostalgia boa daquele bombom de chocolate que comíamos na infância.</p>
+              </div>
+              <div>
+                <h4>Passione</h4>
+                <p>Maracujá com nibs de cacau, trazendo o sabor marcante das trufas caseiras.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CASA NICO -->
+        <div class="tab-panel" data-panel="licor-casa">
+          <p class="panel-subtitle">Comece sua coleção Nico: itens personalizados com a essência Nico.</p>
+          <div class="menu-list">
+            <div class="menu-item">
+              <span class="menu-item-name">Copo de shot 50ml</span>
+              <span class="menu-item-price">R$ 13</span>
+              <p class="menu-item-desc">Copo de shot exclusivo Nico. Seu licor, seu copo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODO DE PREPARO -->
+  <section class="section preparo" id="preparo">
+    <div class="wrap">
+      <div class="center-head" data-reveal>
+        <p class="eyebrow">Do freezer à mesa</p>
+        <h2 class="heading-script">Modo de preparo</h2>
+        <hr class="divider">
+        <div class="preparo-toggle" id="preparoToggle">
+          <button class="active" data-preparo="salgadas">Pizzas salgadas</button>
+          <button data-preparo="dolce">Linha Dolce</button>
+        </div>
+      </div>
+
+      <!-- SALGADAS -->
+      <div class="preparo-panel active" data-preparo-panel="salgadas">
+        <div class="preparo-grid stagger">
+          <div class="preparo-card" data-reveal>
+            <h3>Forno a gás convencional</h3>
+            <ul>
+              <li>Pré-aqueça o forno a 220–240°C por cerca de 10 a 15 minutos.</li>
+              <li>Coloque a pizza e asse de 10 a 15 minutos, dependendo do seu forno e da intensidade do calor.</li>
+              <li>O ponto ideal é quando a massa está dourada e crocante, e o recheio derretido.</li>
+            </ul>
+          </div>
+          <div class="preparo-card" data-reveal>
+            <h3>Forno elétrico convencional</h3>
+            <ul>
+              <li>Pré-aqueça a 200°C por 10 minutos.</li>
+              <li>Coloque a pizza e asse por 10 a 12 minutos, observando o ponto do queijo e da massa.</li>
+              <li>Ajuste o tempo conforme o tamanho da pizza e a intensidade do seu forno.</li>
+            </ul>
+          </div>
+          <div class="preparo-card" data-reveal>
+            <h3>Airfryer</h3>
+            <ul>
+              <li>Use com cuidado: o ar quente cozinha rapidamente o topo, podendo queimar o queijo antes da massa no ponto.</li>
+              <li>O ideal é apenas aquecer ou terminar de assar o topo, sem esperar dourar completamente a massa.</li>
+              <li>Ajuste o tempo em intervalos de 2 a 3 minutos, dependendo do modelo.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="obs-box" data-reveal>
+          <ul>
+            <li>A pizza já é pré-assada, então o objetivo do forno é finalizar a massa e derreter o recheio, preservando textura e sabor.</li>
+            <li>O ponto do recheio é a gosto: para queijo mais gratinado, um minuto a mais pode ser suficiente; para massa mais macia, retire assim que dourar levemente.</li>
+            <li>Seguindo essas orientações, você garante uma experiência de pizzaria no conforto da sua casa.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- DOLCE -->
+      <div class="preparo-panel" data-preparo-panel="dolce">
+        <div class="preparo-grid stagger">
+          <div class="preparo-card" data-reveal>
+            <h3>Forno a gás convencional</h3>
+            <ul>
+              <li>Pré-aqueça o forno a 200°C por cerca de 10 a 15 minutos.</li>
+              <li>Coloque a pizza e asse de 8 a 10 minutos, dependendo do seu forno e da intensidade do calor.</li>
+              <li>O ponto ideal é quando a massa está dourada e crocante, e o recheio derretido.</li>
+            </ul>
+          </div>
+          <div class="preparo-card" data-reveal>
+            <h3>Forno elétrico convencional</h3>
+            <ul>
+              <li>Pré-aqueça a 180°C por 10 minutos.</li>
+              <li>Coloque a pizza e asse de 5 a 10 minutos, observando o ponto do queijo e da massa.</li>
+              <li>Ajuste o tempo conforme o tamanho da pizza e a intensidade do seu forno.</li>
+            </ul>
+          </div>
+          <div class="preparo-card" data-reveal>
+            <h3>Airfryer</h3>
+            <ul>
+              <li>Use com cuidado: o ar quente cozinha rapidamente o topo, podendo queimar o queijo antes da massa no ponto.</li>
+              <li>O ideal é apenas aquecer ou terminar de assar o topo, sem esperar dourar completamente a massa.</li>
+              <li>Ajuste o tempo em intervalos de 2 a 3 minutos, dependendo do modelo.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="obs-box" data-reveal>
+          <ul>
+            <li>A pizza já é pré-assada; o objetivo do forno é finalizar a massa e derreter o recheio, preservando textura e sabor. Os recheios já são gratinados no nosso forno, então apenas uma leve assada é suficiente.</li>
+            <li>O ponto do recheio é a gosto: para recheio mais gratinado, um minuto a mais pode ser suficiente; para massa mais macia, retire assim que dourar levemente.</li>
+            <li>Seguindo essas orientações, você garante uma experiência de pizzaria no conforto da sua casa.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dica-box" data-reveal>
+        “Dica da casa: as bordas podem amassar um pouco por causa do vácuo — é só tirar a pizza do freezer e abrir levemente a embalagem para o ar entrar. Ela se recompõe sozinha. Assim, suas bordas crescem no forno e ficam com aquela aparência rústica e apetitosa.”
+      </div>
+    </div>
+  </section>
+
+  <!-- RECEITAS NICO -->
+  <section class="section receitas" id="receitas">
+    <div class="wrap">
+      <div class="center-head" data-reveal>
+        <p class="eyebrow">Nico Cucina</p>
+        <h2 class="heading-script" style="color:var(--wine)">Receitas</h2>
+        <hr class="divider">
+        <p class="subtitle">Combinações e inspirações para celebrar cada gole da Nico.</p>
+      </div>
+
+      <div class="recipe-grid stagger">
+        <details class="recipe-card" data-reveal>
+          <summary>
+            <span class="recipe-tag">Entrada</span>
+            <h3>Bruschetta com presunto Parma e redução de Licor Ananas con Zenzero Nico</h3>
+            <p class="recipe-desc">O salgado do presunto Parma equilibrado pela doçura picante da redução de Licor de Abacaxi com Gengibre Nico.</p>
+            <span class="recipe-more">Ver receita completa +</span>
+          </summary>
+          <div class="recipe-body">
+            <div class="recipe-cols">
+              <div>
+                <h4>Bruschetta</h4>
+                <ul>
+                  <li>4 fatias de pão italiano</li>
+                  <li>4 fatias de presunto Parma</li>
+                  <li>80g de queijo cremoso (cream cheese ou requeijão cremoso)</li>
+                  <li>Folhas de rúcula para finalizar</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Redução</h4>
+                <ul>
+                  <li>80ml Licor de Abacaxi com Gengibre Nico</li>
+                  <li>50ml suco de abacaxi</li>
+                  <li>1 c. chá açúcar (opcional)</li>
+                </ul>
+              </div>
+            </div>
+            <h4>Modo de preparo</h4>
+            <ol>
+              <li>Torre levemente as fatias de pão.</li>
+              <li>Em uma panela, reduza o licor com o suco até formar calda levemente espessa.</li>
+              <li>Espalhe o queijo sobre o pão, cubra com uma fatia de Parma e finalize com a redução.</li>
+              <li>Decore com rúcula fresca e sirva.</li>
+            </ol>
+            <p class="recipe-meta">Tempo: 20 min · Dificuldade: Fácil · Rendimento: 4 porções</p>
+            <p class="recipe-pair">Harmonize com: Licor Nico Ananas con Zenzero bem gelado ou em drink refrescante com água com gás e limão-siciliano.</p>
+          </div>
+        </details>
+
+        <details class="recipe-card" data-reveal>
+          <summary>
+            <span class="recipe-tag">Prato principal</span>
+            <h3>Salmão ao molho de maracujá com Licor Frutto della Passione Nico</h3>
+            <p class="recipe-desc">Salmão grelhado ao ponto, finalizado com molho de maracujá reduzido no Licor Frutto della Passione Nico, com arroz e legumes salteados na manteiga.</p>
+            <span class="recipe-more">Ver receita completa +</span>
+          </summary>
+          <div class="recipe-body">
+            <div class="recipe-cols">
+              <div>
+                <h4>Salmão e molho</h4>
+                <ul>
+                  <li>2 filés de salmão (150g cada)</li>
+                  <li>Sal e pimenta-do-reino a gosto</li>
+                  <li>1 c. sopa manteiga</li>
+                  <li>100ml suco de maracujá concentrado (ou polpa fresca)</li>
+                  <li>50ml Licor Frutto della Passione Nico</li>
+                  <li>1 c. sopa mel (opcional)</li>
+                  <li>1 c. chá amido de milho (diluído em 2 c. sopa água)</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Arroz com legumes</h4>
+                <ul>
+                  <li>1 xíc. arroz branco cozido</li>
+                  <li>1 cenoura pequena em cubinhos</li>
+                  <li>1 abobrinha pequena em cubinhos</li>
+                  <li>4–5 floretes de brócolis</li>
+                  <li>1 c. sopa manteiga</li>
+                  <li>Sal a gosto</li>
+                </ul>
+              </div>
+            </div>
+            <h4>Modo de preparo</h4>
+            <ol>
+              <li>Molho: reduza o suco de maracujá com o licor até encorpar. Acrescente mel e finalize com o amido diluído. Reserve.</li>
+              <li>Salmão: tempere com sal e pimenta. Grelhe 3–4 min de cada lado em manteiga.</li>
+              <li>Arroz: refogue cenoura, abobrinha e brócolis na manteiga, junte o arroz cozido e ajuste o sal.</li>
+              <li>Montagem: sirva o salmão coberto com o molho, acompanhado do arroz com legumes.</li>
+            </ol>
+            <p class="recipe-meta">Tempo: 40 min · Dificuldade: Fácil · Rendimento: 2 porções</p>
+            <p class="recipe-pair">Harmonize com: taça gelada de Licor Frutto della Passione Nico ou drink cítrico com espumante brut.</p>
+          </div>
+        </details>
+
+        <details class="recipe-card" data-reveal>
+          <summary>
+            <span class="recipe-tag">Sobremesa</span>
+            <h3>Pavê da minha mãe com toque Nico Fragola</h3>
+            <p class="recipe-desc">Um clássico de família com morangos caramelizados no Licor Fragola, trazendo intensidade e elegância ao pavê tradicional.</p>
+            <span class="recipe-more">Ver receita completa +</span>
+          </summary>
+          <div class="recipe-body">
+            <div class="recipe-cols">
+              <div>
+                <h4>Creme</h4>
+                <ul>
+                  <li>1 lata (395g) de leite condensado</li>
+                  <li>1 litro de leite integral</li>
+                  <li>1 gema peneirada</li>
+                  <li>1 c. sopa (15g) de manteiga sem sal</li>
+                  <li>3 c. sopa cheias (30g) de amido de milho</li>
+                  <li>1 caixinha (200g) de creme de leite</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Redução de Fragola</h4>
+                <ul>
+                  <li>200ml de Licor Fragola Nico</li>
+                  <li>2 c. sopa (25g) de açúcar</li>
+                  <li>250g de morangos frescos picados</li>
+                </ul>
+              </div>
+            </div>
+            <h4>Modo de preparo</h4>
+            <ol>
+              <li>Creme: cozinhe todos os ingredientes (menos o creme de leite) até engrossar. Fora do fogo, misture o creme de leite.</li>
+              <li>Redução: ferva o licor com açúcar até engrossar, junte os morangos e cozinhe por 2 min.</li>
+              <li>Montagem: intercale creme, bolacha umedecida e redução. Finalize com creme.</li>
+              <li>Decoração: leve à geladeira por 4h. Polvilhe leite em pó e decore com morangos frescos.</li>
+            </ol>
+            <p class="recipe-meta">Tempo: 40 min · Dificuldade: Fácil · Rendimento: 8 porções</p>
+            <p class="recipe-pair">Harmonize com: Licor Fragola Nico gelado ou em drink com água com gás + limão-siciliano.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTÓRIA -->
+  <section class="section" id="historia">
+    <div class="wrap historia-grid">
+      <div class="historia-head" data-reveal="left">
+        <p class="eyebrow">Nossa origem</p>
+        <h2 class="heading-script">História</h2>
+        <hr class="divider">
+      </div>
+      <div class="historia-body">
+        <div class="historia-block" data-reveal>
+          <h3>A História da Nico</h3>
+          <p>Tudo começou em Itariri, no Vale do Ribeira, quando decidi transformar minha curiosidade em ação e produzir o primeiro licor de limão siciliano. Confesso que nem sabia que precisava diluir o álcool de cereais... o resultado foi um licor muito forte!</p>
+          <p>Resolvi então testar com abacaxi e levar para um evento entre amigos. A reação foi incrível: todos adoraram! Alguns amigos sugeriram: “por que não começa a vender?”. Foi aí que decidi amadurecer a ideia, desenvolver receitas, testar novos sabores e aprimorar meus conhecimentos e habilidades.</p>
+          <p>Com ajuda de amigos, nasceram os primeiros rótulos, e com o tempo a Nico Licores passou a ganhar identidade própria: uma marca que hoje oferece sabores que agradam todos os públicos, sempre inovando e buscando exclusividade.</p>
+          <p>Hoje contamos também com a Linha Nico Pizzas, com massas de longa fermentação, congeladas a vácuo, levando o mesmo cuidado artesanal e sabor único para a sua mesa.</p>
+        </div>
+        <div class="historia-block" data-reveal>
+          <h3>Por que “Nico”?</h3>
+          <p>O nome da marca e a nossa logo, com o velhinho simpático, são uma homenagem ao meu avô paterno, Antonio. Um avô que cumpre até hoje a verdadeira definição de ser presente: proporcionando vivências, aventuras e experiências de forma simples e genuína, ensinando valores que nenhum dinheiro compra.</p>
+          <p>Um avô que estará para sempre no coração de quem o conhece. Além de exemplo de avô, é um ótimo pai, marido e pessoa, que inspira respeito, carinho e admiração em todos que têm o prazer de conhecê-lo. A Nico nasce com esse espírito: genuína, afetiva e presente em cada gole e em cada fatia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER / CONTATO -->
+  <footer class="footer" id="contato">
+    <img src="assets/nico-logo.png" alt="Nico" class="footer-logo-img" data-reveal="scale">
+    <div class="footer-logo" data-reveal="scale">NICO<span>Produtos Artesanais</span></div>
+    <p class="tagline" data-reveal>Do nosso forno, para o seu.</p>
+    <p class="footer-address" data-reveal>Itariri · Vale do Ribeira, SP<br>Massas de longa fermentação, congeladas a vácuo, prontas para o seu forno.</p>
+    <div class="footer-actions" data-reveal>
+      <a class="btn btn-primary" href="https://wa.me/5500000000000" target="_blank" rel="noopener">Pedir pelo WhatsApp</a>
+      <a class="btn btn-ghost" href="#cardapio">Ver cardápio</a>
+    </div>
+    <p class="footer-note">© <span id="year"></span> Nico Produtos Artesanais. Todos os direitos reservados.</p>
+  </footer>
+
+<script>
+(function(){
+  // ---- year ----
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- nav scrolled state ----
+  var nav = document.getElementById('siteNav');
+  var progressBar = document.getElementById('progressBar');
+  function onScroll(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    nav.classList.toggle('scrolled', y > 40);
+    var doc = document.documentElement;
+    var h = doc.scrollHeight - doc.clientHeight;
+    var pct = h > 0 ? (y / h) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // ---- mobile nav toggle ----
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      toggle.classList.remove('open');
+      links.classList.remove('open');
+    });
+  });
+
+  // ---- active nav link on scroll ----
+  var sections = ['processo','cardapio','licores','preparo','receitas','historia','contato'].map(function(id){
+    return document.getElementById(id);
+  });
+  var navAnchors = Array.prototype.slice.call(links.querySelectorAll('a[href^="#"]'));
+  var navSpy = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var id = entry.target.id;
+        navAnchors.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, {rootMargin:'-45% 0px -45% 0px', threshold:0});
+  sections.forEach(function(s){ if(s) navSpy.observe(s); });
+
+  // ---- reveal on scroll ----
+  var revealEls = document.querySelectorAll('[data-reveal]');
+  if('IntersectionObserver' in window){
+    var revealObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15, rootMargin:'0px 0px -8% 0px'});
+    revealEls.forEach(function(el){ revealObserver.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in-view'); });
+  }
+
+  // ---- parallax ----
+  var parallaxEls = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ticking = false;
+  function updateParallax(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    parallaxEls.forEach(function(el){
+      var speed = parseFloat(el.getAttribute('data-parallax')) || 0.1;
+      var offset = y * speed;
+      if(el.classList.contains('hero-ring')){
+        el.style.transform = 'translate(-50%,-52%) translateY(' + offset + 'px) rotate(' + (y * 0.02) + 'deg)';
+      } else if(el.classList.contains('hero-watermark')){
+        el.style.transform = 'translate(-50%,-50%) translateY(' + offset + 'px)';
+      } else {
+        el.style.transform = 'translateY(' + offset + 'px)';
+      }
+    });
+    ticking = false;
+  }
+  function requestTick(){
+    if(!ticking && !reduceMotion){
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }
+  if(!reduceMotion){
+    document.addEventListener('scroll', requestTick, {passive:true});
+    updateParallax();
+  }
+
+  // ---- tabs (scoped per widget so multiple tab groups don't clash) ----
+  document.querySelectorAll('.tabs-widget').forEach(function(widget){
+    var tabBtns = widget.querySelectorAll('.tab-btn');
+    var panels = widget.querySelectorAll('.tab-panel');
+    tabBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        tabBtns.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+        panels.forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected','true');
+        var target = widget.querySelector('[data-panel="' + btn.getAttribute('data-tab') + '"]');
+        if(target) target.classList.add('active');
+      });
+    });
+  });
+
+  // ---- cart ----
+  var WHATSAPP_NUMBER = '5500000000000';
+  var CART_KEY = 'nico_cart_v1';
+  var cart = {};
+
+  function loadCart(){
+    try{ cart = JSON.parse(localStorage.getItem(CART_KEY) || '{}'); }
+    catch(e){ cart = {}; }
+  }
+  function saveCart(){
+    try{ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }catch(e){}
+  }
+  function cartCount(){
+    var n = 0;
+    Object.keys(cart).forEach(function(k){ n += cart[k].qty; });
+    return n;
+  }
+  function cartTotal(){
+    var t = 0;
+    Object.keys(cart).forEach(function(k){ t += cart[k].qty * cart[k].price; });
+    return t;
+  }
+  function setQty(name, price, qty){
+    if(qty <= 0){ delete cart[name]; }
+    else { cart[name] = { name:name, price:price, qty:qty }; }
+    saveCart();
+    renderAll();
+  }
+
+  var cartFab = document.getElementById('cartFab');
+  var cartFabBadge = document.getElementById('cartFabBadge');
+  var cartOverlay = document.getElementById('cartOverlay');
+  var cartDrawer = document.getElementById('cartDrawer');
+  var cartClose = document.getElementById('cartClose');
+  var cartItemsEl = document.getElementById('cartItems');
+  var cartEmptyEl = document.getElementById('cartEmpty');
+  var cartTotalEl = document.getElementById('cartTotal');
+  var cartSendEl = document.getElementById('cartSend');
+  var cartClearBtn = document.getElementById('cartClear');
+
+  function renderMenuSteppers(){
+    document.querySelectorAll('#cardapio .menu-item[data-name]').forEach(function(item){
+      var name = item.getAttribute('data-name');
+      var valueEl = item.querySelector('.qty-value');
+      if(valueEl) valueEl.textContent = cart[name] ? cart[name].qty : 0;
+    });
+  }
+
+  function renderCartDrawer(){
+    var names = Object.keys(cart);
+    cartItemsEl.querySelectorAll('.cart-line').forEach(function(el){ el.remove(); });
+    cartEmptyEl.style.display = names.length ? 'none' : 'block';
+    names.forEach(function(name){
+      var it = cart[name];
+      var line = document.createElement('div');
+      line.className = 'cart-line';
+      line.innerHTML =
+        '<div class="cart-line-info">' +
+          '<div class="cart-line-name">' + it.name + '</div>' +
+          '<div class="cart-line-price">R$ ' + it.price + ' cada</div>' +
+        '</div>' +
+        '<div class="qty-stepper">' +
+          '<button class="qty-btn minus" aria-label="Remover">−</button>' +
+          '<span class="qty-value">' + it.qty + '</span>' +
+          '<button class="qty-btn plus" aria-label="Adicionar">+</button>' +
+        '</div>' +
+        '<button class="cart-line-remove" aria-label="Excluir item">&times;</button>';
+      line.querySelector('.minus').addEventListener('click', function(){ setQty(name, it.price, it.qty - 1); });
+      line.querySelector('.plus').addEventListener('click', function(){ setQty(name, it.price, it.qty + 1); });
+      line.querySelector('.cart-line-remove').addEventListener('click', function(){ setQty(name, it.price, 0); });
+      cartItemsEl.appendChild(line);
+    });
+  }
+
+  function buildWhatsAppMessage(){
+    var names = Object.keys(cart);
+    var lines = names.map(function(name){
+      var it = cart[name];
+      return '• ' + it.qty + ' ' + it.name + ' — R$ ' + (it.qty * it.price);
+    });
+    var msg = lines.join('\n') +
+      '\n\n💰 Total: R$ ' + cartTotal() +
+      '\n\n⸻\n\n' +
+      'Muito obrigado por apoiar a Nico 🤍\n' +
+      'Cada pizza é produzida de forma artesanal, com muito cuidado e ingredientes selecionados!\n\n' +
+      '📲 PIX (CPF)\n\n125.197.258-69\n\n👤 Pedro Luiz De Oliveira';
+    return msg;
+  }
+
+  function renderAll(){
+    renderMenuSteppers();
+    renderCartDrawer();
+    var count = cartCount();
+    cartFabBadge.textContent = count;
+    cartFabBadge.classList.remove('bump');
+    void cartFabBadge.offsetWidth;
+    cartFabBadge.classList.add('bump');
+    cartTotalEl.textContent = 'R$ ' + cartTotal();
+    if(count > 0){
+      cartSendEl.classList.remove('disabled');
+      cartSendEl.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(buildWhatsAppMessage());
+    } else {
+      cartSendEl.classList.add('disabled');
+      cartSendEl.removeAttribute('href');
+    }
+  }
+
+  function openCart(){
+    cartOverlay.classList.add('open');
+    cartDrawer.classList.add('open');
+    cartDrawer.setAttribute('aria-hidden', 'false');
+  }
+  function closeCart(){
+    cartOverlay.classList.remove('open');
+    cartDrawer.classList.remove('open');
+    cartDrawer.setAttribute('aria-hidden', 'true');
+  }
+
+  cartFab.addEventListener('click', openCart);
+  cartClose.addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+  cartClearBtn.addEventListener('click', function(){
+    cart = {};
+    saveCart();
+    renderAll();
+  });
+
+  document.querySelectorAll('#cardapio .menu-item[data-name]').forEach(function(item){
+    var name = item.getAttribute('data-name');
+    var price = parseFloat(item.getAttribute('data-price'));
+    item.querySelector('.qty-stepper .minus').addEventListener('click', function(){
+      var current = cart[name] ? cart[name].qty : 0;
+      setQty(name, price, current - 1);
+    });
+    item.querySelector('.qty-stepper .plus').addEventListener('click', function(){
+      var current = cart[name] ? cart[name].qty : 0;
+      setQty(name, price, current + 1);
+      openCart();
+    });
+  });
+
+  loadCart();
+  renderAll();
+
+  // ---- preparo toggle ----
+  var prepBtns = document.querySelectorAll('#preparoToggle button');
+  var prepPanels = document.querySelectorAll('.preparo-panel');
+  prepBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      prepBtns.forEach(function(b){ b.classList.remove('active'); });
+      prepPanels.forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      var target = document.querySelector('[data-preparo-panel="' + btn.getAttribute('data-preparo') + '"]');
+      if(target) target.classList.add('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>
