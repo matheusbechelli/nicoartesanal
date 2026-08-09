@@ -495,6 +495,18 @@
     font-family:'Playfair Display', serif; font-weight:700; font-size:1.05rem;
     color:var(--wine);
   }
+  .qty-stepper-group{
+    grid-column:1 / -1;
+    display:flex; flex-wrap:wrap; justify-content:flex-end;
+    gap:0.8rem 1.6rem; margin-top:0.7rem;
+  }
+  .qty-stepper-group .qty-stepper{
+    grid-column:auto; margin-top:0;
+  }
+  .qty-size{
+    font-family:'Quicksand', sans-serif; font-weight:700; font-size:0.78rem;
+    letter-spacing:0.04em; color:var(--ink-soft); margin-right:0.1rem;
+  }
 
   /* ---------- floating cart button ---------- */
   .cart-fab{
@@ -1061,7 +1073,7 @@
       <button class="cart-close" id="cartClose" aria-label="Fechar carrinho">&times;</button>
     </div>
     <div class="cart-items" id="cartItems">
-      <p class="cart-empty" id="cartEmpty">Seu carrinho está vazio. Adicione pizzas no cardápio!</p>
+      <p class="cart-empty" id="cartEmpty">Seu carrinho está vazio. Adicione pizzas ou licores!</p>
     </div>
     <div class="cart-drawer-foot">
       <div class="cart-total-row">
@@ -1114,36 +1126,64 @@
               <span class="menu-item-name">Fragolino Liquor</span>
               <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
               <p class="menu-item-desc">Licor delicado e refrescante de morangos frescos, perfeito para sobremesas e drinks leves.</p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Fragolino Liquor 500ml" data-price="60"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+                <div class="qty-stepper" data-name="Fragolino Liquor 700ml" data-price="80"><span class="qty-size">700ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
             <div class="menu-item licor-item">
               <span class="menu-item-name">Ananas Liquor</span>
               <span class="menu-item-price licor-price"><b>R$ 55</b><b>R$ 75</b></span>
               <p class="menu-item-desc">Licor tropical de abacaxi com o calor aromático da canela, ideal para drinks refrescantes.</p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Ananas Liquor 500ml" data-price="55"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+                <div class="qty-stepper" data-name="Ananas Liquor 700ml" data-price="75"><span class="qty-size">700ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
             <div class="menu-item licor-item">
               <span class="menu-item-name">Frutto della Passione Liquor</span>
               <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
               <p class="menu-item-desc">Licor marcante de maracujá, com acidez equilibrada e final vibrante.</p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Frutto della Passione Liquor 500ml" data-price="60"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+                <div class="qty-stepper" data-name="Frutto della Passione Liquor 700ml" data-price="80"><span class="qty-size">700ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
             <div class="menu-item licor-item">
               <span class="menu-item-name">Banana Liquor</span>
               <span class="menu-item-price licor-price"><b>R$ 55</b><b>R$ 75</b></span>
               <p class="menu-item-desc">Licor doce e aveludado, feito com bananas selecionadas e exclusivamente da nossa região.</p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Banana Liquor 500ml" data-price="55"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+                <div class="qty-stepper" data-name="Banana Liquor 700ml" data-price="75"><span class="qty-size">700ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
             <div class="menu-item licor-item">
               <span class="menu-item-name">Jabuticaba Liquor</span>
               <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
               <p class="menu-item-desc">Licor intenso e aromático, feito com jabuticabas colhidas na região no auge da maturação.</p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Jabuticaba Liquor 500ml" data-price="60"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+                <div class="qty-stepper" data-name="Jabuticaba Liquor 700ml" data-price="80"><span class="qty-size">700ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
             <div class="menu-item licor-item">
               <span class="menu-item-name">Limoncello</span>
               <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
               <p class="menu-item-desc">Licor clássico italiano, feito com limões sicilianos selecionados. Refrescante e aromático, perfeito para digestivo e drinks.</p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Limoncello 500ml" data-price="60"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+                <div class="qty-stepper" data-name="Limoncello 700ml" data-price="80"><span class="qty-size">700ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
             <div class="menu-item licor-item">
               <span class="menu-item-name">Frutto di Mango Liquor</span>
               <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
               <p class="menu-item-desc">Licor com textura aveludada, aroma intenso e sabor equilibrado, perfeito para servir gelado ou em drinks leves e refrescantes.</p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Frutto di Mango Liquor 500ml" data-price="60"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+                <div class="qty-stepper" data-name="Frutto di Mango Liquor 700ml" data-price="80"><span class="qty-size">700ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
           </div>
           <p class="panel-footnote">Sirva gelado, puro ou em drinks.</p>
@@ -1158,16 +1198,28 @@
               <span class="menu-item-name">Fragola con Pepe Liquor</span>
               <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
               <p class="menu-item-desc">Licor ousado que combina a doçura delicada do morango com a picância envolvente da pimenta dedo-de-moça. Criado para quem gosta de contrastes de sabor.</p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Fragola con Pepe Liquor 500ml" data-price="60"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+                <div class="qty-stepper" data-name="Fragola con Pepe Liquor 700ml" data-price="80"><span class="qty-size">700ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
             <div class="menu-item licor-item">
               <span class="menu-item-name">Ananas con Zenzero Liquor</span>
               <span class="menu-item-price licor-price"><b>R$ 55</b><b>R$ 75</b></span>
               <p class="menu-item-desc">Licor vibrante que une a doçura tropical do abacaxi com o calor do gengibre, resultando em equilíbrio perfeito entre frescor e intensidade.</p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Ananas con Zenzero Liquor 500ml" data-price="55"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+                <div class="qty-stepper" data-name="Ananas con Zenzero Liquor 700ml" data-price="75"><span class="qty-size">700ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
             <div class="menu-item licor-item">
               <span class="menu-item-name">Passione di Mora e Fragola Liquor</span>
               <span class="menu-item-price licor-price"><b>R$ 60</b><b>R$ 80</b></span>
               <p class="menu-item-desc">Licor que une o melhor de duas frutas apaixonantes: a suavidade doce do morango e a intensidade levemente ácida da amora.</p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Passione di Mora e Fragola Liquor 500ml" data-price="60"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+                <div class="qty-stepper" data-name="Passione di Mora e Fragola Liquor 700ml" data-price="80"><span class="qty-size">700ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
             <div class="menu-item licor-item">
               <span class="menu-item-name">Granella di Cacao</span>
@@ -1175,6 +1227,9 @@
               <p class="menu-item-desc">Licor com nibs de cacau selecionados diretamente da cidade de Itariri. Intenso, sofisticado e marcante, trazendo notas profundas de chocolate e um leve amargor que se equilibra com a doçura natural. Recebemos o nibs em natura e torramos na temperatura ideal para a produção.
                 <small>Disponível somente em 500ml.</small>
               </p>
+              <div class="qty-stepper-group">
+                <div class="qty-stepper" data-name="Granella di Cacao 500ml" data-price="80"><span class="qty-size">500ml</span><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
+              </div>
             </div>
           </div>
           <p class="panel-footnote">Celebre e aproveite cada momento com quem a gente ama.</p>
@@ -1198,10 +1253,11 @@
         <div class="tab-panel" data-panel="licor-casa">
           <p class="panel-subtitle">Comece sua coleção Nico: itens personalizados com a essência Nico.</p>
           <div class="menu-list">
-            <div class="menu-item">
+            <div class="menu-item" data-name="Copo de shot 50ml" data-price="13">
               <span class="menu-item-name">Copo de shot 50ml</span>
               <span class="menu-item-price">R$ 13</span>
               <p class="menu-item-desc">Copo de shot exclusivo Nico. Seu licor, seu copo.</p>
+              <div class="qty-stepper"><button class="qty-btn minus" aria-label="Remover">−</button><span class="qty-value">0</span><button class="qty-btn plus" aria-label="Adicionar">+</button></div>
             </div>
           </div>
         </div>
@@ -1632,11 +1688,22 @@
   var cartSendEl = document.getElementById('cartSend');
   var cartClearBtn = document.getElementById('cartClear');
 
+  function stepperInfo(stepper){
+    var name = stepper.getAttribute('data-name');
+    var price = stepper.getAttribute('data-price');
+    if(name === null){
+      var parent = stepper.closest('.menu-item');
+      name = parent.getAttribute('data-name');
+      price = parent.getAttribute('data-price');
+    }
+    return { name: name, price: parseFloat(price) };
+  }
+
   function renderMenuSteppers(){
-    document.querySelectorAll('#cardapio .menu-item[data-name]').forEach(function(item){
-      var name = item.getAttribute('data-name');
-      var valueEl = item.querySelector('.qty-value');
-      if(valueEl) valueEl.textContent = cart[name] ? cart[name].qty : 0;
+    document.querySelectorAll('#cardapio .qty-stepper, #licores .qty-stepper').forEach(function(stepper){
+      var info = stepperInfo(stepper);
+      var valueEl = stepper.querySelector('.qty-value');
+      if(valueEl) valueEl.textContent = cart[info.name] ? cart[info.name].qty : 0;
     });
   }
 
@@ -1719,16 +1786,15 @@
     renderAll();
   });
 
-  document.querySelectorAll('#cardapio .menu-item[data-name]').forEach(function(item){
-    var name = item.getAttribute('data-name');
-    var price = parseFloat(item.getAttribute('data-price'));
-    item.querySelector('.qty-stepper .minus').addEventListener('click', function(){
-      var current = cart[name] ? cart[name].qty : 0;
-      setQty(name, price, current - 1);
+  document.querySelectorAll('#cardapio .qty-stepper, #licores .qty-stepper').forEach(function(stepper){
+    var info = stepperInfo(stepper);
+    stepper.querySelector('.minus').addEventListener('click', function(){
+      var current = cart[info.name] ? cart[info.name].qty : 0;
+      setQty(info.name, info.price, current - 1);
     });
-    item.querySelector('.qty-stepper .plus').addEventListener('click', function(){
-      var current = cart[name] ? cart[name].qty : 0;
-      setQty(name, price, current + 1);
+    stepper.querySelector('.plus').addEventListener('click', function(){
+      var current = cart[info.name] ? cart[info.name].qty : 0;
+      setQty(info.name, info.price, current + 1);
       openCart();
     });
   });
