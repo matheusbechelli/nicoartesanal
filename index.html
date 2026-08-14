@@ -601,6 +601,13 @@
     text-decoration:underline; cursor:pointer;
   }
   .cart-clear:hover{color:var(--wine);}
+  .cart-delivery-note{
+    background:rgba(58,20,22,0.05); border:1px solid rgba(58,20,22,0.14);
+    border-radius:var(--radius); padding:0.7rem 0.9rem; margin-bottom:var(--space-s);
+    font-family:'Quicksand', sans-serif; font-size:0.85rem; color:var(--ink-soft);
+    line-height:1.45;
+  }
+  .cart-delivery-note strong{color:var(--wine);}
 
   /* ---------- chips (licores highlights) ---------- */
   .chip-row{
@@ -1076,6 +1083,7 @@
       <p class="cart-empty" id="cartEmpty">Seu carrinho está vazio. Adicione pizzas ou licores!</p>
     </div>
     <div class="cart-drawer-foot">
+      <p class="cart-delivery-note">🚚 <strong>Entregas às terças (final da tarde) e sábados (horário de almoço).</strong> A data combinamos direto no WhatsApp ao fechar o pedido.</p>
       <div class="cart-total-row">
         <span>Total</span>
         <span id="cartTotal">R$ 0</span>
@@ -1744,6 +1752,7 @@
       '\n\n⸻\n\n' +
       'Muito obrigado por apoiar a Nico 🤍\n' +
       'Cada pizza é produzida de forma artesanal, com muito cuidado e ingredientes selecionados!\n\n' +
+      '🚚 Entregas às terças (final da tarde) e sábados (horário de almoço). Vamos combinar o melhor dia por aqui!\n\n' +
       '📲 PIX (CPF)\n\n125.197.258-69\n\n👤 Pedro Luiz De Oliveira';
     return msg;
   }
